@@ -1,0 +1,31 @@
+*{
+    box-sizing: border-box;
+}
+.content{
+    width: 100%;
+}
+.pokemon{
+    height: 200px;
+    width: 200px;
+    border-radius: 20px;
+    border: 1px solid gray;
+    display: inline-block;
+    position: relative;
+    margin-left: 10px;
+    float: left;
+}
+.stt{
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    color: red;
+    font-weight: 800;
+}
+.content .pokemon img{
+    position: absolute;
+    width: 100px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+}
+
