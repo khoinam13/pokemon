@@ -1,0 +1,22 @@
+<style>
+    .box-user p{
+        color: red;
+    }
+    .box-user label{
+        font-weight: 500;
+        font-size: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+</style>
+<div class="user mt-4 ml-4 mr-4">
+    <div class="form-group  box-user">
+        <form action="/user/store" method="post">
+            <label for="">Nhập tên người chơi</label>
+            <input type="text" class="form-control" name="user" id="user" value="{{messageValue}}" required="">
+            <p>{{messageErr}}</p>
+            <input name="" id="" class="btn btn-secondary mt-3" type="submit" value="Gửi">
+        </form>  
+    </div>
+</div>

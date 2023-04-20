@@ -1,10 +1,27 @@
+<style>
+    header .user{
+        letter-spacing: 1px;
+        font-weight: 500;
+        font-size: 25px;
+        margin-left: 40%;
+        margin-top: 30px;
+    }
+    header span{
+        color: red;
+    }
+    header>button>a{
+        color: #ffff;
+        text-decoration: none;
+        list-style: none;
+    }
+</style>
 <div class="container">
-
     <header>
         <h1>PokeMatch</h1>
         <button onclick="resetGame()">Reset</button>
+        <div class="user">Người chơi: <span>{{NameUser}}</span></div>
+        <button><a href="/">Huỷ</a></button>
     </header>
     <div id="app">
     </div>
 </div>
-<script src="js/app.js"></script>

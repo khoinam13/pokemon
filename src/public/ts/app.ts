@@ -69,7 +69,7 @@ if(root){
 
 let firstPick:any;
 let isPaused:boolean = false;
-let matches:number;
+let matches:number=0;
 
 const clickCard = (e:any) => {
     const pokemonCard = e.currentTarget
@@ -104,8 +104,9 @@ const clickCard = (e:any) => {
         }
         else{
             matches++;
-            if(matches === 8) {
+            if(matches ===8) {
                 console.log("WINNER");
+                alert('Bạn đã chiến thắng')
             }
             firstPick = null;
             isPaused = false;
@@ -120,6 +121,15 @@ const getFrontAndBackFromCard = (card:any) => {
 const rotateElements = (elements:any) => {
     if(typeof elements !== 'object' || !elements.length) return;
     elements.forEach((element:any) => element.classList.toggle('rotated'));
+}
+const resetGame = ()=>{
+    app.innerHTML = '';
+    isPaused = false;
+    firstPick = null;
+    matches = 0;
+    if(root){
+        fetchData(root)
+    } 
 }
 
 

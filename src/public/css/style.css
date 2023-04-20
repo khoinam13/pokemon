@@ -19,6 +19,8 @@ header {
 
 h1 {
     font-size: 54px;
+    text-align: center;
+    padding-top: 10px;
 }
 
 #app {
@@ -67,10 +69,12 @@ button {
     font-size:18px;
     background-color: #c62828;
     color: white;
-    border-radius: 5px;
+    border-radius: 20px;
     border: none;
     padding: 10px 20px;
     cursor: pointer;
+    float: right;
+
 }
 
 
