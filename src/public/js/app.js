@@ -45,7 +45,7 @@ function shuffle() {
     }
 }
 function template(pokeItem) {
-    return "\n    <div class=\"pokemon\">\n        <div class=\"stt\">".concat(pokeItem.id, "</div>\n        <img src=\"").concat(pokeItem.image, "\" alt=\"").concat(pokeItem.type, "\">\n    </div>\n    ");
+    return "\n    <div class=\"pokemon card\" onclick=\"clickCard(event)\" data-pokeid=\"".concat(pokeItem.id, "\">\n            <div class=\"front\">\n            </div>\n            <div class=\"back rotated\">\n                <img src=\"").concat(pokeItem.image, "\" alt=\"").concat(pokeItem.type, "\">\n                <h2>").concat(pokeItem.name, "</h2>\n            </div>\n    </div>\n    ");
 }
 function fetchData(root) {
     return __awaiter(this, void 0, void 0, function () {
@@ -56,7 +56,7 @@ function fetchData(root) {
                     i = 1;
                     _b.label = 1;
                 case 1:
-                    if (!(i <= 20)) return [3 /*break*/, 5];
+                    if (!(i <= 8)) return [3 /*break*/, 5];
                     return [4 /*yield*/, fetch("https://pokeapi.co/api/v2/pokemon/".concat(i))];
                 case 2:
                     data = _b.sent();
@@ -74,6 +74,7 @@ function fetchData(root) {
                         type: type
                     };
                     pokemons.push(poke);
+                    pokemons.push(poke);
                     _b.label = 4;
                 case 4:
                     i++;
@@ -82,7 +83,9 @@ function fetchData(root) {
                     shuffle();
                     console.log(pokemons);
                     pokemons.forEach(function (Element) {
-                        root.innerHTML += template(Element);
+                        if (typeof Element === 'object') {
+                            root.innerHTML += template(Element);
+                        }
                     });
                     return [2 /*return*/];
             }
@@ -93,3 +96,58 @@ var root = document.getElementById('app');
 if (root) {
     fetchData(root);
 }
+// view 
+var firstPick;
+var isPaused = false;
+var matches;
+var clickCard = function (e) {
+    var pokemonCard = e.currentTarget;
+    console.log(pokemonCard);
+    var _a = getFrontAndBackFromCard(pokemonCard), front = _a[0], back = _a[1];
+    console.log(front);
+    if (front.classList.contains("rotated") || isPaused) {
+        return;
+    }
+    isPaused = true;
+    rotateElements([front, back]);
+    // front.classList.toggle('rotated')
+    // back.classList.toggle('rotated')
+    if (!firstPick) {
+        firstPick = pokemonCard;
+        isPaused = false;
+    }
+    else {
+        var secondPokemonName = pokemonCard.dataset.pokeid;
+        var firstPokemonName = firstPick.dataset.pokeid;
+        if (firstPokemonName !== secondPokemonName) {
+            var _b = getFrontAndBackFromCard(firstPick), firstFront_1 = _b[0], firstBack_1 = _b[1];
+            setTimeout(function () {
+                rotateElements([front, back, firstFront_1, firstBack_1]);
+                // front.classList.toggle('rotated')
+                // back.classList.toggle('rotated')
+                // firstFront.classList.toggle('rotated')
+                // firstBack.classList.toggle('rotated')
+                firstPick = null;
+                isPaused = false;
+            }, 500);
+        }
+        else {
+            matches++;
+            if (matches === 8) {
+                console.log("WINNER");
+            }
+            firstPick = null;
+            isPaused = false;
+        }
+    }
+};
+var getFrontAndBackFromCard = function (card) {
+    var front = card.querySelector(".front");
+    var back = card.querySelector(".back");
+    return [front, back];
+};
+var rotateElements = function (elements) {
+    if (typeof elements !== 'object' || !elements.length)
+        return;
+    elements.forEach(function (element) { return element.classList.toggle('rotated'); });
+};
